@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"wechat-work/util"
-	"wechat-work/work/context"
+	"github.com/faryoo/wework/util"
+	"github.com/faryoo/wework/work/context"
 )
 
 // Oauth auth

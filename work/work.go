@@ -1,12 +1,12 @@
 package work
 
 import (
-	"wechat-work/credential"
-	"wechat-work/work/config"
-	"wechat-work/work/context"
-	"wechat-work/work/kf"
-	"wechat-work/work/msgaudit"
-	"wechat-work/work/oauth"
+	"github.com/faryoo/wework/credential"
+	"github.com/faryoo/wework/work/config"
+	"github.com/faryoo/wework/work/context"
+	"github.com/faryoo/wework/work/kf"
+	"github.com/faryoo/wework/work/msgaudit"
+	"github.com/faryoo/wework/work/oauth"
 )
 
 // Work 企业微信

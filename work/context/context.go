@@ -1,8 +1,8 @@
 package context
 
 import (
-	"wechat-work/credential"
-	"wechat-work/work/config"
+	"github.com/faryoo/wework/credential"
+	"github.com/faryoo/wework/work/config"
 )
 
 // Context struct

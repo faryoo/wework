@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"wechat-work/cache"
-	"wechat-work/util"
+	"github.com/faryoo/wework/cache"
+	"github.com/faryoo/wework/util"
 )
 
 const (

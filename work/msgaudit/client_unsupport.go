@@ -7,7 +7,7 @@ package msgaudit
 import (
 	"fmt"
 
-	"wechat-work/work/config"
+	"github.com/faryoo/wework/work/config"
 )
 
 // Client 会话存档

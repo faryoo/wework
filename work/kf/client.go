@@ -1,10 +1,10 @@
 package kf
 
 import (
-	"wechat-work/cache"
-	"wechat-work/credential"
-	"wechat-work/work/config"
-	"wechat-work/work/context"
+	"github.com/faryoo/wework/cache"
+	"github.com/faryoo/wework/credential"
+	"github.com/faryoo/wework/work/config"
+	"github.com/faryoo/wework/work/context"
 )
 
 // Client 微信客服实例

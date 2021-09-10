@@ -1,11 +1,11 @@
 package wechat
 
 import (
+	"github.com/faryoo/wework/cache"
+	"github.com/faryoo/wework/work"
+	workConfig "github.com/faryoo/wework/work/config"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"wechat-work/cache"
-	"wechat-work/work"
-	workConfig "wechat-work/work/config"
 )
 
 func init() {

@@ -1,4 +1,4 @@
-module wechat-work
+module github.com/faryoo/wework
 
 go 1.17
 

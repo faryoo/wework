@@ -2,7 +2,7 @@
 package config
 
 import (
-	"wechat-work/cache"
+	"github.com/faryoo/wework/cache"
 )
 
 // Config for 企业微信
