@@ -1,12 +1,12 @@
 package work
 
 import (
-	"github.com/silenceper/wechat/v2/credential"
-	"github.com/silenceper/wechat/v2/work/config"
-	"github.com/silenceper/wechat/v2/work/context"
-	"github.com/silenceper/wechat/v2/work/kf"
-	"github.com/silenceper/wechat/v2/work/msgaudit"
-	"github.com/silenceper/wechat/v2/work/oauth"
+	"wechat-work/credential"
+	"wechat-work/work/config"
+	"wechat-work/work/context"
+	"wechat-work/work/kf"
+	"wechat-work/work/msgaudit"
+	"wechat-work/work/oauth"
 )
 
 // Work 企业微信

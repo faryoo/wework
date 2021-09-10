@@ -2,7 +2,7 @@
 package config
 
 import (
-	"github.com/silenceper/wechat/v2/cache"
+	"wechat-work/cache"
 )
 
 // Config for 企业微信
