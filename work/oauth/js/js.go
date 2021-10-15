@@ -9,6 +9,7 @@ import (
 
 // Js wx jssdk
 type Js struct {
+	Agentid string
 	*context.Context
 	credential.JsTicketHandle
 }
@@ -23,6 +24,7 @@ type Config struct {
 // NewJs init
 func NewJs(context *context.Context, appID string) *Js {
 	js := new(Js)
+	js.Agentid = appID
 	js.Context = context
 	jsTicketHandle := credential.NewDefaultJsTicket(appID, credential.CacheKeyWorkPrefix, context.Cache)
 	js.SetJsTicketHandle(jsTicketHandle)
@@ -36,7 +38,7 @@ func (js *Js) SetJsTicketHandle(ticketHandle credential.JsTicketHandle) {
 
 // GetConfig 第三方平台 - 获取jssdk需要的配置参数
 // uri 为当前网页地址
-func (js *Js) GetConfig(uri, agentid string) (config *Config, err error) {
+func (js *Js) GetConfig(uri string) (config *Config, err error) {
 	config = new(Config)
 	var accessToken string
 	accessToken, err = js.GetAccessToken()
