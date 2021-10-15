@@ -3,7 +3,6 @@ module github.com/faryoo/wework
 go 1.17
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gomodule/redigo v1.8.5
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
