@@ -3,14 +3,15 @@ package menu
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/faryoo/wework/util"
 	"github.com/faryoo/wework/work/context"
 )
 
 const (
-	menuCreateURL            = "https://api.weixin.qq.com/cgi-bin/menu/create"
-	menuGetURL               = "https://api.weixin.qq.com/cgi-bin/menu/get"
+	menuCreateURL            = "https://qyapi.weixin.qq.com/cgi-bin/menu/create"
+	menuGetURL               = "https://qyapi.weixin.qq.com/cgi-bin/menu/get"
 	menuDeleteURL            = "https://api.weixin.qq.com/cgi-bin/menu/delete"
 	menuAddConditionalURL    = "https://api.weixin.qq.com/cgi-bin/menu/addconditional"
 	menuDeleteConditionalURL = "https://api.weixin.qq.com/cgi-bin/menu/delconditional"
@@ -56,12 +57,7 @@ type resMenuTryMatch struct {
 // ResMenu 查询菜单的返回数据
 type ResMenu struct {
 	util.CommonError
-
-	Menu struct {
-		Button []Button `json:"button"`
-		MenuID int64    `json:"menuid"`
-	} `json:"menu"`
-	Conditionalmenu []resConditionalMenu `json:"conditionalmenu"`
+	Button []Button `json:"button"`
 }
 
 // ResSelfMenuInfo 自定义菜单配置返回结果
@@ -162,12 +158,13 @@ func (menu *Menu) GetMenu() (resMenu ResMenu, err error) {
 	if err != nil {
 		return
 	}
-	uri := fmt.Sprintf("%s?access_token=%s", menuGetURL, accessToken)
+	uri := fmt.Sprintf("%s?access_token=%s&agentid=%s", menuGetURL, accessToken, menu.AgentID)
 	var response []byte
 	response, err = util.HTTPGet(uri)
 	if err != nil {
 		return
 	}
+	log.Println(string(response))
 	err = json.Unmarshal(response, &resMenu)
 	if err != nil {
 		return

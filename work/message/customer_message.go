@@ -152,7 +152,7 @@ type MediaMiniprogrampage struct {
 	ThumbMediaID string `json:"thumb_media_id"`
 }
 
-// Send 发送客服消息
+// Send 发送消息
 func (manager *Manager) Send(msg *CustomerMessage) error {
 	accessToken, err := manager.Context.GetAccessToken()
 	if err != nil {

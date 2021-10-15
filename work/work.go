@@ -2,12 +2,13 @@ package work
 
 import (
 	"github.com/faryoo/wework/credential"
+	"github.com/faryoo/wework/work/appmessage"
 	"github.com/faryoo/wework/work/config"
 	"github.com/faryoo/wework/work/context"
-	"github.com/faryoo/wework/work/kf"
 	"github.com/faryoo/wework/work/menu"
 	"github.com/faryoo/wework/work/msgaudit"
 	"github.com/faryoo/wework/work/oauth"
+	"github.com/faryoo/wework/work/oauth/js"
 	"github.com/faryoo/wework/work/server"
 	"github.com/faryoo/wework/work/user"
 	"net/http"
@@ -20,7 +21,7 @@ type Work struct {
 
 // NewWork init work
 func NewWork(cfg *config.Config) *Work {
-	defaultAkHandle := credential.NewWorkAccessToken(cfg.CorpID, cfg.CorpSecret, credential.CacheKeyWorkPrefix, cfg.Cache)
+	defaultAkHandle := credential.NewWorkAccessToken(cfg.CorpID, cfg.CorpSecret, cfg.AgentID, credential.CacheKeyWorkPrefix, cfg.Cache)
 	ctx := &context.Context{
 		Config:            cfg,
 		AccessTokenHandle: defaultAkHandle,
@@ -70,7 +71,10 @@ func (wk *Work) GetUser() *user.User {
 	return user.NewUser(wk.ctx)
 }
 
-// GetKF get kf
-func (wk *Work) GetKF() (*kf.Client, error) {
-	return kf.NewClient(wk.ctx.Config)
+func (wk *Work) GetAppMsg() *appmessage.AppMsg {
+	return appmessage.NewAppMsg(wk.ctx)
+}
+
+func (wk *Work) GetConfig(agentid string) *js.Js {
+	return js.NewJs(wk.ctx, agentid)
 }

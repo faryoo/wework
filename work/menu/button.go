@@ -2,24 +2,22 @@ package menu
 
 // Button 菜单按钮
 type Button struct {
-	Type       string    `json:"type,omitempty"`
-	Name       string    `json:"name,omitempty"`
-	Key        string    `json:"key,omitempty"`
-	URL        string    `json:"url,omitempty"`
-	MediaID    string    `json:"media_id,omitempty"`
-	AppID      string    `json:"appid,omitempty"`
-	PagePath   string    `json:"pagepath,omitempty"`
-	SubButtons []*Button `json:"sub_button,omitempty"`
+	Type       string   `json:"type,omitempty"`
+	Name       string   `json:"name,omitempty"`
+	Key        string   `json:"key,omitempty"`
+	URL        string   `json:"url,omitempty"`
+	AppID      string   `json:"appid,omitempty"`
+	PagePath   string   `json:"pagepath,omitempty"`
+	SubButtons []Button `json:"sub_button,omitempty"`
 }
 
 // SetSubButton 设置二级菜单
-func (btn *Button) SetSubButton(name string, subButtons []*Button) *Button {
+func (btn *Button) SetSubButton(name string, subButtons []Button) *Button {
 	btn.Name = name
 	btn.SubButtons = subButtons
 	btn.Type = ""
 	btn.Key = ""
 	btn.URL = ""
-	btn.MediaID = ""
 	return btn
 }
 
@@ -29,7 +27,6 @@ func (btn *Button) SetClickButton(name, key string) *Button {
 	btn.Name = name
 	btn.Key = key
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -40,7 +37,6 @@ func (btn *Button) SetViewButton(name, url string) *Button {
 	btn.Name = name
 	btn.URL = url
 	btn.Key = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -51,7 +47,6 @@ func (btn *Button) SetScanCodePushButton(name, key string) *Button {
 	btn.Name = name
 	btn.Key = key
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -61,9 +56,7 @@ func (btn *Button) SetScanCodeWaitMsgButton(name, key string) *Button {
 	btn.Type = "scancode_waitmsg"
 	btn.Name = name
 	btn.Key = key
-
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -73,9 +66,7 @@ func (btn *Button) SetPicSysPhotoButton(name, key string) *Button {
 	btn.Type = "pic_sysphoto"
 	btn.Name = name
 	btn.Key = key
-
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -85,9 +76,7 @@ func (btn *Button) SetPicPhotoOrAlbumButton(name, key string) *Button {
 	btn.Type = "pic_photo_or_album"
 	btn.Name = name
 	btn.Key = key
-
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -97,9 +86,7 @@ func (btn *Button) SetPicWeixinButton(name, key string) *Button {
 	btn.Type = "pic_weixin"
 	btn.Name = name
 	btn.Key = key
-
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -109,9 +96,7 @@ func (btn *Button) SetLocationSelectButton(name, key string) *Button {
 	btn.Type = "location_select"
 	btn.Name = name
 	btn.Key = key
-
 	btn.URL = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
@@ -120,8 +105,6 @@ func (btn *Button) SetLocationSelectButton(name, key string) *Button {
 func (btn *Button) SetMediaIDButton(name, mediaID string) *Button {
 	btn.Type = "media_id"
 	btn.Name = name
-	btn.MediaID = mediaID
-
 	btn.Key = ""
 	btn.URL = ""
 	btn.SubButtons = nil
@@ -132,8 +115,6 @@ func (btn *Button) SetMediaIDButton(name, mediaID string) *Button {
 func (btn *Button) SetViewLimitedButton(name, mediaID string) *Button {
 	btn.Type = "view_limited"
 	btn.Name = name
-	btn.MediaID = mediaID
-
 	btn.Key = ""
 	btn.URL = ""
 	btn.SubButtons = nil
@@ -147,15 +128,13 @@ func (btn *Button) SetMiniprogramButton(name, url, appID, pagePath string) *Butt
 	btn.URL = url
 	btn.AppID = appID
 	btn.PagePath = pagePath
-
 	btn.Key = ""
-	btn.MediaID = ""
 	btn.SubButtons = nil
 	return btn
 }
 
 // NewSubButton 二级菜单
-func NewSubButton(name string, subButtons []*Button) *Button {
+func NewSubButton(name string, subButtons []Button) *Button {
 	return (&Button{}).SetSubButton(name, subButtons)
 }
 

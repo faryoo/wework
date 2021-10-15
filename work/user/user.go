@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	userInfoURL     = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN"
+	userInfoURL     = "https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=%s&userid=%s"
 	updateRemarkURL = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s"
 	userListURL     = "https://api.weixin.qq.com/cgi-bin/user/get"
 )
@@ -31,23 +31,13 @@ func NewUser(context *context.Context) *User {
 type Info struct {
 	util.CommonError
 
-	Subscribe      int32   `json:"subscribe"`
-	OpenID         string  `json:"openid"`
-	Nickname       string  `json:"nickname"`
-	Sex            int32   `json:"sex"`
-	City           string  `json:"city"`
-	Country        string  `json:"country"`
-	Province       string  `json:"province"`
-	Language       string  `json:"language"`
-	Headimgurl     string  `json:"headimgurl"`
-	SubscribeTime  int32   `json:"subscribe_time"`
-	UnionID        string  `json:"unionid"`
-	Remark         string  `json:"remark"`
-	GroupID        int32   `json:"groupid"`
-	TagIDList      []int32 `json:"tagid_list"`
-	SubscribeScene string  `json:"subscribe_scene"`
-	QrScene        int     `json:"qr_scene"`
-	QrSceneStr     string  `json:"qr_scene_str"`
+	UserID      string `json:"userid"`
+	Name        string `json:"name"`
+	Mobile      string `json:"mobile"`
+	Department  string `json:"department"`
+	Gender      string `json:"gender"`
+	Avatar      string `json:"avatar"`
+	ThumbAvatar string `json:"thumb_avatar"`
 }
 
 // OpenidList 用户列表
@@ -137,7 +127,7 @@ func (user *User) ListUserOpenIDs(nextOpenid ...string) (*OpenidList, error) {
 }
 
 // ListAllUserOpenIDs 返回所有用户OpenID列表
-func (user *User) ListAllUserOpenIDs() ([]string, error) {
+func (user *User) ListAllUserUserIDs() ([]string, error) {
 	nextOpenid := ""
 	openids := make([]string, 0)
 	count := 0

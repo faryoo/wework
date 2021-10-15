@@ -17,15 +17,6 @@ const (
 	CacheKeyWorkPrefix = "gowechat_work_"
 )
 
-// DefaultAccessToken 默认AccessToken 获取
-type DefaultAccessToken struct {
-	appID           string
-	appSecret       string
-	cacheKeyPrefix  string
-	cache           cache.Cache
-	accessTokenLock *sync.Mutex
-}
-
 // ResAccessToken struct
 type ResAccessToken struct {
 	util.CommonError
@@ -38,19 +29,21 @@ type ResAccessToken struct {
 type WorkAccessToken struct {
 	CorpID          string
 	CorpSecret      string
+	AgentId         string
 	cacheKeyPrefix  string
 	cache           cache.Cache
 	accessTokenLock *sync.Mutex
 }
 
 // NewWorkAccessToken new WorkAccessToken
-func NewWorkAccessToken(corpID, corpSecret, cacheKeyPrefix string, cache cache.Cache) AccessTokenHandle {
+func NewWorkAccessToken(corpID, corpSecret, angentId, cacheKeyPrefix string, cache cache.Cache) AccessTokenHandle {
 	if cache == nil {
 		panic("cache the not exist")
 	}
 	return &WorkAccessToken{
 		CorpID:          corpID,
 		CorpSecret:      corpSecret,
+		AgentId:         angentId,
 		cache:           cache,
 		cacheKeyPrefix:  cacheKeyPrefix,
 		accessTokenLock: new(sync.Mutex),
@@ -62,7 +55,7 @@ func (ak *WorkAccessToken) GetAccessToken() (accessToken string, err error) {
 	// 加上lock，是为了防止在并发获取token时，cache刚好失效，导致从微信服务器上获取到不同token
 	ak.accessTokenLock.Lock()
 	defer ak.accessTokenLock.Unlock()
-	accessTokenCacheKey := fmt.Sprintf("%s_access_token_%s", ak.cacheKeyPrefix, ak.CorpID)
+	accessTokenCacheKey := fmt.Sprintf("%s_access_token_%s_%s", ak.cacheKeyPrefix, ak.CorpID, ak.AgentId)
 	val := ak.cache.Get(accessTokenCacheKey)
 	if val != nil {
 		accessToken = val.(string)

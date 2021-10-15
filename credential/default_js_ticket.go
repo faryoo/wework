@@ -11,7 +11,7 @@ import (
 )
 
 // getTicketURL 获取ticket的url
-const getTicketURL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi"
+const getTicketURL = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token=%s&type=agent_config"
 
 // DefaultJsTicket 默认获取js ticket方法
 type DefaultJsTicket struct {
