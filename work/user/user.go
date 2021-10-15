@@ -34,7 +34,7 @@ type Info struct {
 	UserID         string `json:"userid"`
 	Name           string `json:"name"`
 	Mobile         string `json:"mobile"`
-	Department     string `json:"department"`
+	Department     []int  `json:"department"`
 	Gender         string `json:"gender"`
 	Avatar         string `json:"avatar"`
 	ThumbAvatar    string `json:"thumb_avatar"`
