@@ -31,13 +31,14 @@ func NewUser(context *context.Context) *User {
 type Info struct {
 	util.CommonError
 
-	UserID      string `json:"userid"`
-	Name        string `json:"name"`
-	Mobile      string `json:"mobile"`
-	Department  string `json:"department"`
-	Gender      string `json:"gender"`
-	Avatar      string `json:"avatar"`
-	ThumbAvatar string `json:"thumb_avatar"`
+	UserID         string `json:"userid"`
+	Name           string `json:"name"`
+	Mobile         string `json:"mobile"`
+	Department     string `json:"department"`
+	Gender         string `json:"gender"`
+	Avatar         string `json:"avatar"`
+	ThumbAvatar    string `json:"thumb_avatar"`
+	IsLeaderInDept []int  `json:"is_leader_in_dept"`
 }
 
 // OpenidList 用户列表

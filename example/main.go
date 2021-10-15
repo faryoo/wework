@@ -6,7 +6,6 @@ import (
 	wechat "github.com/faryoo/wework"
 	"github.com/faryoo/wework/cache"
 	workConfig "github.com/faryoo/wework/work/config"
-	"log"
 	"net/http"
 )
 
@@ -27,7 +26,7 @@ func serveWechat(rw http.ResponseWriter, req *http.Request) {
 	redisOpts := &cache.RedisOpts{
 		Host:        "192.168.6.100:6379",
 		Password:    "",
-		Database:    6,
+		Database:    5,
 		MaxIdle:     10,
 		MaxActive:   10,
 		IdleTimeout: 60,
@@ -35,14 +34,12 @@ func serveWechat(rw http.ResponseWriter, req *http.Request) {
 	redisCache := cache.NewRedis(redisOpts)
 	workcfg := &workConfig.Config{
 		CorpID:         "ww16dcca8975dc595e",
-		AgentID:        "1000014",
-		CorpSecret:     "VQd7y88ECwA6gA_BENK9ab7eb2fOfHTd2DQH38sTRa8",
+		AgentID:        "1000016",
+		CorpSecret:     "hb0Unp4yXN9l1cP43O-J-nB-f_IB7WEIghbGorfhGRk",
 		Token:          "olGwFFZeGdtULjRYs0",
 		EncodingAESKey: "QacEZIJd7iM6FszkT5St6Tc9CO3Z0SGc1tpELGSGIrD",
 		Cache:          redisCache,
 	}
 	work := wc.GetWork(workcfg)
-
-	userinfo, _ := work.GetUser().GetUserInfo("akita")
-	log.Println(userinfo)
+	fmt.Println(work.GetUser().GetAccessToken())
 }
