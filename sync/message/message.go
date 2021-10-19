@@ -48,11 +48,12 @@ type MixMessage struct {
 	UserID         string    `xml:"UserID"`
 	Position       string    `xml:"Position"`
 	Name           string    `xml:"Name"`
-	Department     string    `xml:"Department"`
-	MainDepartment string    `xml:"MainDepartment"`
-	IsLeaderInDept string    `xml:"IsLeaderInDept"`
+	Department     []int     `xml:"Department"`
+	MainDepartment int       `xml:"MainDepartment"`
+	IsLeaderInDept []int     `xml:"IsLeaderInDept"`
 	Id             string    `xml:"Id"`
 	ParentId       string    `xml:"ParentId"`
+	Status         int       `xml:"Status"`
 }
 
 // EncryptedXMLMsg 安全模式下的消息体
