@@ -41,5 +41,5 @@ func serveWechat(rw http.ResponseWriter, req *http.Request) {
 		Cache:          redisCache,
 	}
 	work := wc.GetWork(workcfg)
-	fmt.Println(work.GetUser().GetAccessToken())
+	fmt.Println(work.GetUser().GetUserList(5))
 }

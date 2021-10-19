@@ -12,7 +12,7 @@ import (
 const (
 	userInfoURL     = "https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=%s&userid=%s"
 	updateRemarkURL = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s"
-	userListURL     = "https://api.weixin.qq.com/cgi-bin/user/get"
+	userListURL     = "https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=%s&department_id=%d&fetch_child=1"
 )
 
 // User 用户管理
@@ -39,6 +39,25 @@ type Info struct {
 	Avatar         string `json:"avatar"`
 	ThumbAvatar    string `json:"thumb_avatar"`
 	IsLeaderInDept []int  `json:"is_leader_in_dept"`
+}
+type DetailList struct {
+	util.CommonError
+	Userlist []Userlist `json:"userlist"`
+}
+type Userlist struct {
+	Userid         string `json:"userid"`
+	Name           string `json:"name"`
+	Department     []int  `json:"department"`
+	Order          []int  `json:"order"`
+	Position       string `json:"position"`
+	Mobile         string `json:"mobile"`
+	Gender         string `json:"gender"`
+	Email          string `json:"email"`
+	IsLeaderInDept []int  `json:"is_leader_in_dept"`
+	Avatar         string `json:"avatar"`
+	ThumbAvatar    string `json:"thumb_avatar"`
+	Telephone      string `json:"telephone"`
+	Alias          string `json:"alias"`
 }
 
 // OpenidList 用户列表
@@ -74,6 +93,32 @@ func (user *User) GetUserInfo(openID string) (userInfo *Info, err error) {
 	}
 	if userInfo.ErrCode != 0 {
 		err = fmt.Errorf("GetUserInfo Error , errcode=%d , errmsg=%s", userInfo.ErrCode, userInfo.ErrMsg)
+		return
+	}
+	return
+}
+
+// GetUserInfo 获取用户基本信息
+func (user *User) GetUserList(departmentId int) (userList *DetailList, err error) {
+	var accessToken string
+	accessToken, err = user.GetAccessToken()
+	if err != nil {
+		return
+	}
+
+	uri := fmt.Sprintf(userListURL, accessToken, departmentId)
+	var response []byte
+	response, err = util.HTTPGet(uri)
+	if err != nil {
+		return
+	}
+	userList = new(DetailList)
+	err = json.Unmarshal(response, userList)
+	if err != nil {
+		return
+	}
+	if userList.ErrCode != 0 {
+		err = fmt.Errorf("GetUserInfo Error , errcode=%d , errmsg=%s", userList.ErrCode, userList.ErrMsg)
 		return
 	}
 	return

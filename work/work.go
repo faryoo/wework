@@ -8,7 +8,6 @@ import (
 	"github.com/faryoo/wework/work/menu"
 	"github.com/faryoo/wework/work/msgaudit"
 	"github.com/faryoo/wework/work/oauth"
-	"github.com/faryoo/wework/work/oauth/js"
 	"github.com/faryoo/wework/work/server"
 	"github.com/faryoo/wework/work/user"
 	"net/http"
@@ -73,8 +72,4 @@ func (wk *Work) GetUser() *user.User {
 
 func (wk *Work) GetAppMsg() *appmessage.AppMsg {
 	return appmessage.NewAppMsg(wk.ctx)
-}
-
-func (wk *Work) GetConfig(agentid string) *js.Js {
-	return js.NewJs(wk.ctx, agentid)
 }
