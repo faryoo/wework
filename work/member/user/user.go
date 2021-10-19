@@ -58,8 +58,8 @@ type Userlist struct {
 	ThumbAvatar    string `json:"thumb_avatar"`
 	Telephone      string `json:"telephone"`
 	Alias          string `json:"alias"`
-	Status         string `json:"status"`
-	MainDepartment string `json:"main_department"`
+	Status         int    `json:"status"`
+	MainDepartment int    `json:"main_department"`
 }
 
 // OpenidList 用户列表
