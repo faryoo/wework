@@ -73,14 +73,14 @@ type OpenidList struct {
 }
 
 // GetUserInfo 获取用户基本信息
-func (user *User) GetUserInfo(openID string) (userInfo *Info, err error) {
+func (user *User) GetUserInfo(userID string) (userInfo *Info, err error) {
 	var accessToken string
 	accessToken, err = user.GetAccessToken()
 	if err != nil {
 		return
 	}
 
-	uri := fmt.Sprintf(userInfoURL, accessToken, openID)
+	uri := fmt.Sprintf(userInfoURL, accessToken, userID)
 	var response []byte
 	response, err = util.HTTPGet(uri)
 	if err != nil {

@@ -2,6 +2,8 @@ package wechat
 
 import (
 	"github.com/faryoo/wework/cache"
+	"github.com/faryoo/wework/sync"
+	syncConfig "github.com/faryoo/wework/sync/config"
 	"github.com/faryoo/wework/work"
 	workConfig "github.com/faryoo/wework/work/config"
 	log "github.com/sirupsen/logrus"
@@ -38,4 +40,9 @@ func (wc *Wechat) SetCache(cahce cache.Cache) {
 // GetWork 获取企业微信的实例
 func (wc *Wechat) GetWork(cfg *workConfig.Config) *work.Work {
 	return work.NewWork(cfg)
+}
+
+// GetSync 获取企业微信的实例
+func (wc *Wechat) GetSync(cfg *syncConfig.Config) *sync.Sync {
+	return sync.NewSync(cfg)
 }
