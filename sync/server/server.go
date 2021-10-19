@@ -94,7 +94,7 @@ func (srv *Server) GetOpenID() string {
 }
 
 // getMessage 解析微信返回的消息
-func (srv *Server) GetMessage() (interface{}, error) {
+func (srv *Server) GetMessage() (*message.MixMessage, error) {
 	var rawXMLMsgBytes []byte
 	var err error
 
