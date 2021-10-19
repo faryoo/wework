@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/xml"
-	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -23,8 +22,6 @@ type Server struct {
 	skipValidate bool
 
 	openID string
-
-	messageHandler func(*message.MixMessage) *message.Reply
 
 	RequestRawXMLMsg  []byte
 	RequestMsg        *message.MixMessage
@@ -60,37 +57,6 @@ func (srv *Server) Validate() bool {
 	log.Debugf("validate signature, timestamp=%s, nonce=%s", timestamp, nonce)
 	fmt.Println(srv.Token)
 	return signature == util.Signature(srv.Token, timestamp, nonce)
-}
-
-// HandleRequest 处理微信的请求
-func (srv *Server) handleRequest() (reply *message.Reply, err error) {
-	// set isSafeMode
-	srv.isSafeMode = false
-	encryptType := srv.Query("encrypt_type")
-	if encryptType == "aes" {
-		srv.isSafeMode = true
-	}
-
-	// set openID
-	srv.openID = srv.Query("openid")
-
-	var msg interface{}
-	msg, err = srv.GetMessage()
-	if err != nil {
-		return
-	}
-	mixMessage, success := msg.(*message.MixMessage)
-	if !success {
-		err = errors.New("消息类型转换失败")
-	}
-	srv.RequestMsg = mixMessage
-	reply = srv.messageHandler(mixMessage)
-	return
-}
-
-// GetOpenID return openID
-func (srv *Server) GetOpenID() string {
-	return srv.openID
 }
 
 // getMessage 解析微信返回的消息
