@@ -5,11 +5,12 @@ import (
 	"github.com/faryoo/wework/work/appmessage"
 	"github.com/faryoo/wework/work/config"
 	"github.com/faryoo/wework/work/context"
+	"github.com/faryoo/wework/work/member/department"
+	"github.com/faryoo/wework/work/member/user"
 	"github.com/faryoo/wework/work/menu"
 	"github.com/faryoo/wework/work/msgaudit"
 	"github.com/faryoo/wework/work/oauth"
 	"github.com/faryoo/wework/work/server"
-	"github.com/faryoo/wework/work/user"
 	"net/http"
 )
 
@@ -68,6 +69,9 @@ func (wk *Work) GetMsgAudit() (*msgaudit.Client, error) {
 
 func (wk *Work) GetUser() *user.User {
 	return user.NewUser(wk.ctx)
+}
+func (wk *Work) GetDepartMent() *department.DepartMent {
+	return department.NewDepartMent(wk.ctx)
 }
 
 func (wk *Work) GetAppMsg() *appmessage.AppMsg {
