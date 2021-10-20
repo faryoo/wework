@@ -1,6 +1,0 @@
-projectKey=wework
-serverUrl=http://sonar.restapp.cn
-serverVersion=9.0.1.46107
-dashboardUrl=http://sonar.restapp.cn/dashboard?id=wework
-ceTaskId=AXvPm-n9-GUzAaOaVnlu
-ceTaskUrl=http://sonar.restapp.cn/api/ce/task?id=AXvPm-n9-GUzAaOaVnlu
