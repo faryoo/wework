@@ -1,6 +1,8 @@
 package work
 
 import (
+	"net/http"
+
 	"github.com/faryoo/wework/credential"
 	"github.com/faryoo/wework/work/appmessage"
 	"github.com/faryoo/wework/work/config"
@@ -11,7 +13,6 @@ import (
 	"github.com/faryoo/wework/work/msgaudit"
 	"github.com/faryoo/wework/work/oauth"
 	"github.com/faryoo/wework/work/server"
-	"net/http"
 )
 
 // Work 企业微信

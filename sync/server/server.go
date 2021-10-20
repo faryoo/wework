@@ -21,14 +21,12 @@ type Server struct {
 
 	skipValidate bool
 
-	openID string
 
 	RequestRawXMLMsg  []byte
 	RequestMsg        *message.MixMessage
 	ResponseRawXMLMsg []byte
 	ResponseMsg       interface{}
 
-	isSafeMode bool
 	random     []byte
 	nonce      string
 	timestamp  int64

@@ -3,6 +3,7 @@ package department
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/faryoo/wework/util"
 	"github.com/faryoo/wework/work/context"
 )

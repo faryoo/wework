@@ -101,15 +101,15 @@ func (user *User) GetUserInfo(userID string) (userInfo *Info, err error) {
 	return
 }
 
-// GetUserInfo 获取用户基本信息
-func (user *User) GetUserList(departmentId int) (userList *DetailList, err error) {
+// GetUserList  获取用户基本信息
+func (user *User) GetUserList(departmentID int) (userList *DetailList, err error) {
 	var accessToken string
 	accessToken, err = user.GetAccessToken()
 	if err != nil {
 		return
 	}
 
-	uri := fmt.Sprintf(userListURL, accessToken, departmentId)
+	uri := fmt.Sprintf(userListURL, accessToken, departmentID)
 	var response []byte
 	response, err = util.HTTPGet(uri)
 	if err != nil {
@@ -175,7 +175,7 @@ func (user *User) ListUserOpenIDs(nextOpenid ...string) (*OpenidList, error) {
 	return &userlist, nil
 }
 
-// ListAllUserOpenIDs 返回所有用户OpenID列表
+// ListAllUserUserIDs  返回所有用户OpenID列表
 func (user *User) ListAllUserUserIDs() ([]string, error) {
 	nextOpenid := ""
 	openids := make([]string, 0)

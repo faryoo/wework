@@ -1,10 +1,11 @@
 package sync
 
 import (
+	"net/http"
+
 	"github.com/faryoo/wework/sync/config"
 	"github.com/faryoo/wework/sync/context"
 	"github.com/faryoo/wework/sync/server"
-	"net/http"
 )
 
 // Work 企业微信

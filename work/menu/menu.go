@@ -41,11 +41,11 @@ type reqMenuTryMatch struct {
 }
 
 // resConditionalMenu 个性化菜单返回结果
-type resConditionalMenu struct {
-	Button    []Button  `json:"button"`
-	MatchRule MatchRule `json:"matchrule"`
-	MenuID    int64     `json:"menuid"`
-}
+// type resConditionalMenu struct {
+// 	Button    []Button  `json:"button"`
+// 	MatchRule MatchRule `json:"matchrule"`
+// 	MenuID    int64     `json:"menuid"`
+// }
 
 // resMenuTryMatch 菜单匹配请求结果
 type resMenuTryMatch struct {
