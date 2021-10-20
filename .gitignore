@@ -13,10 +13,11 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-/.idea
-/.scannerwork
-/.vscode
+.idea
+.scannerwork
+.vscode
 sonar-project.properties
 
-/example/
+example
 .DS_Store
+go.sum
