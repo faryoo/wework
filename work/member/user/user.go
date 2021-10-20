@@ -39,6 +39,7 @@ type Info struct {
 	Avatar         string `json:"avatar"`
 	ThumbAvatar    string `json:"thumb_avatar"`
 	IsLeaderInDept []int  `json:"is_leader_in_dept"`
+	MainDepartment int    `json:"main_department"`
 }
 type DetailList struct {
 	util.CommonError
