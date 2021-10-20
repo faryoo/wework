@@ -18,4 +18,4 @@
 sonar-project.properties
 
 /example/
-/example/
+.DS_Store

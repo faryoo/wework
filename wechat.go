@@ -1,14 +1,16 @@
 package wechat
 
 import (
+	"os"
+
 	"github.com/faryoo/wework/cache"
 	"github.com/faryoo/wework/sync"
 	syncConfig "github.com/faryoo/wework/sync/config"
 	"github.com/faryoo/wework/work"
 	workConfig "github.com/faryoo/wework/work/config"
 	log "github.com/sirupsen/logrus"
-	"os"
 )
+
 
 func init() {
 	// Log as JSON instead of the default ASCII formatter.
