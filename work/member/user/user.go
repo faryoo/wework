@@ -24,6 +24,7 @@ type User struct {
 func NewUser(context *context.Context) *User {
 	user := new(User)
 	user.Context = context
+
 	return user
 }
 
@@ -96,8 +97,10 @@ func (user *User) GetUserInfo(userID string) (userInfo *Info, err error) {
 	}
 	if userInfo.ErrCode != 0 {
 		err = fmt.Errorf("GetUserInfo Error , errcode=%d , errmsg=%s", userInfo.ErrCode, userInfo.ErrMsg)
+
 		return
 	}
+
 	return
 }
 
@@ -122,8 +125,10 @@ func (user *User) GetUserList(departmentID int) (userList *DetailList, err error
 	}
 	if userList.ErrCode != 0 {
 		err = fmt.Errorf("GetUserInfo Error , errcode=%d , errmsg=%s", userList.ErrCode, userList.ErrMsg)
+
 		return
 	}
+
 	return
 }
 

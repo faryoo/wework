@@ -5,8 +5,10 @@ import (
 	"net/http"
 )
 
-var xmlContentType = []string{"application/xml; charset=utf-8"}
-var plainContentType = []string{"text/plain; charset=utf-8"}
+var (
+	xmlContentType   = []string{"application/xml; charset=utf-8"}
+	plainContentType = []string{"text/plain; charset=utf-8"}
+)
 
 func writeContextType(w http.ResponseWriter, value []string) {
 	header := w.Header()
@@ -20,8 +22,9 @@ func (srv *Server) Render(bytes []byte) {
 	// debug
 	// fmt.Println("response msg = ", string(bytes))
 	srv.Writer.WriteHeader(200)
-	_, err := srv.Writer.Write(bytes)
-	if err != nil {
+
+	// _, err := srv.Writer.Write(bytes)
+	if _, err := srv.Writer.Write(bytes); err != nil {
 		panic(err)
 	}
 }
@@ -35,16 +38,19 @@ func (srv *Server) String(str string) {
 // XML render to xml
 func (srv *Server) XML(obj interface{}) {
 	writeContextType(srv.Writer, xmlContentType)
+
 	bytes, err := xml.Marshal(obj)
 	if err != nil {
 		panic(err)
 	}
+
 	srv.Render(bytes)
 }
 
 // Query returns the keyed url query value if it exists
 func (srv *Server) Query(key string) string {
 	value, _ := srv.GetQuery(key)
+
 	return value
 }
 
@@ -54,5 +60,6 @@ func (srv *Server) GetQuery(key string) (string, bool) {
 	if values, ok := req.URL.Query()[key]; ok && len(values) > 0 {
 		return values[0], true
 	}
+
 	return "", false
 }

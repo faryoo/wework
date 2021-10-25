@@ -82,7 +82,7 @@ func (c CDATA) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	}{string(c)}, start)
 }
 
-// GetOpenID get the FromUserName value
+// GetUserID get the FromUserName value
 func (msg *MixMessage) GetUserID() string {
 	return msg.UserID
 }

@@ -130,7 +130,7 @@ func (tpl *Template) Add(shortID string) (templateID string, err error) {
 	if err != nil {
 		return
 	}
-	var msg = struct {
+	msg := struct {
 		ShortID string `json:"template_id_short"`
 	}{ShortID: shortID}
 	uri := fmt.Sprintf("%s?access_token=%s", templateAddURL, accessToken)
@@ -156,7 +156,7 @@ func (tpl *Template) Delete(templateID string) (err error) {
 	if err != nil {
 		return
 	}
-	var msg = struct {
+	msg := struct {
 		TemplateID string `json:"template_id"`
 	}{TemplateID: templateID}
 

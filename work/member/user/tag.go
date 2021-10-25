@@ -139,7 +139,7 @@ func (user *User) OpenIDListByTag(tagID int32, nextOpenID ...string) (userList *
 		return nil, err
 	}
 	url := fmt.Sprintf(tagUserListURL, accessToken)
-	var request = struct {
+	request := struct {
 		ID     int32  `json:"tagid"`
 		OpenID string `json:"next_openid"`
 	}{
@@ -169,7 +169,7 @@ func (user *User) BatchTag(openIDList []string, tagID int32) (err error) {
 	if len(openIDList) == 0 {
 		return
 	}
-	var request = struct {
+	request := struct {
 		OpenIDList []string `json:"openid_list"`
 		TagID      int32    `json:"tagid"`
 	}{
@@ -194,7 +194,7 @@ func (user *User) BatchUntag(openIDList []string, tagID int32) (err error) {
 		return
 	}
 	url := fmt.Sprintf(tagBatchuntaggingURL, accessToken)
-	var request = struct {
+	request := struct {
 		OpenIDList []string `json:"openid_list"`
 		TagID      int32    `json:"tagid"`
 	}{
@@ -215,7 +215,7 @@ func (user *User) UserTidList(openID string) (tagIDList []int32, err error) {
 		return
 	}
 	url := fmt.Sprintf(tagUserTidListURL, accessToken)
-	var request = struct {
+	request := struct {
 		OpenID string `json:"openid"`
 		TagID  int32  `json:"tagid"`
 	}{

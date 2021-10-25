@@ -34,6 +34,7 @@ func NewOauth(ctx *context.Context) *Oauth {
 func (ctr *Oauth) GetTargetURL(callbackURL string) string {
 	// url encode
 	urlStr := url.QueryEscape(callbackURL)
+
 	return fmt.Sprintf(
 		oauthTargetURL,
 		ctr.CorpID,
@@ -45,6 +46,7 @@ func (ctr *Oauth) GetTargetURL(callbackURL string) string {
 func (ctr *Oauth) GetQrContentTargetURL(callbackURL string) string {
 	// url encode
 	urlStr := url.QueryEscape(callbackURL)
+
 	return fmt.Sprintf(
 		oauthQrContentTargetURL,
 		ctr.CorpID,
@@ -68,20 +70,27 @@ type ResUserInfo struct {
 func (ctr *Oauth) UserFromCode(code string) (result ResUserInfo, err error) {
 	var accessToken string
 	accessToken, err = ctr.GetAccessToken()
+
 	if err != nil {
 		return
 	}
+
 	var response []byte
 	response, err = util.HTTPGet(
 		fmt.Sprintf(oauthUserInfoURL, accessToken, code),
 	)
+
 	if err != nil {
 		return
 	}
+
 	err = json.Unmarshal(response, &result)
+
 	if result.ErrCode != 0 {
-		err = fmt.Errorf("GetUserAccessToken error : errcode=%v , errmsg=%v", result.ErrCode, result.ErrMsg)
+		err = fmt.Errorf("getUserAccessToken error : errcode=%d , errmsg=%s", result.ErrCode, result.ErrMsg)
+
 		return
 	}
+
 	return
 }

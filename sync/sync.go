@@ -8,12 +8,12 @@ import (
 	"github.com/faryoo/wework/sync/server"
 )
 
-// Work 企业微信
+// Sync  企业微信通讯录同步
 type Sync struct {
 	ctx *context.Context
 }
 
-// NewWork init work
+// NewSync  init work
 func NewSync(cfg *config.Config) *Sync {
 	ctx := &context.Context{
 		Config: cfg,
@@ -26,5 +26,6 @@ func (sy *Sync) GetServer(req *http.Request, writer http.ResponseWriter) *server
 	srv := server.NewServer(sy.ctx)
 	srv.Request = req
 	srv.Writer = writer
+
 	return srv
 }

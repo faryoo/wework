@@ -5,6 +5,7 @@ package user
 import (
 	"errors"
 	"fmt"
+
 	"github.com/faryoo/wework/util"
 )
 

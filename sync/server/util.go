@@ -5,8 +5,10 @@ import (
 	"net/http"
 )
 
-var xmlContentType = []string{"application/xml; charset=utf-8"}
-var plainContentType = []string{"text/plain; charset=utf-8"}
+var (
+	xmlContentType   = []string{"application/xml; charset=utf-8"}
+	plainContentType = []string{"text/plain; charset=utf-8"}
+)
 
 func writeContextType(w http.ResponseWriter, value []string) {
 	header := w.Header()

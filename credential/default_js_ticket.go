@@ -61,27 +61,34 @@ func (js *DefaultJsTicket) GetTicket(accessToken string) (ticketStr string, err 
 	if err != nil {
 		return
 	}
+
 	expires := ticket.ExpiresIn - 1500
 	err = js.cache.Set(jsAPITicketCacheKey, ticket.Ticket, time.Duration(expires)*time.Second)
 	ticketStr = ticket.Ticket
+
 	return
 }
 
 // GetTicketFromServer 从服务器中获取ticket
 func GetTicketFromServer(accessToken string) (ticket ResTicket, err error) {
 	var response []byte
+
 	url := fmt.Sprintf(getTicketURL, accessToken)
 	response, err = util.HTTPGet(url)
 	if err != nil {
 		return
 	}
+
 	err = json.Unmarshal(response, &ticket)
 	if err != nil {
 		return
 	}
+
 	if ticket.ErrCode != 0 {
 		err = fmt.Errorf("getTicket Error : errcode=%d , errmsg=%s", ticket.ErrCode, ticket.ErrMsg)
+
 		return
 	}
+
 	return
 }

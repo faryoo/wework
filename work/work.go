@@ -50,6 +50,7 @@ func (wk *Work) GetServer(req *http.Request, writer http.ResponseWriter) *server
 	srv := server.NewServer(wk.ctx)
 	srv.Request = req
 	srv.Writer = writer
+
 	return srv
 }
 
@@ -71,6 +72,7 @@ func (wk *Work) GetMsgAudit() (*msgaudit.Client, error) {
 func (wk *Work) GetUser() *user.User {
 	return user.NewUser(wk.ctx)
 }
+
 func (wk *Work) GetDepartMent() *department.DepartMent {
 	return department.NewDepartMent(wk.ctx)
 }

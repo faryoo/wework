@@ -44,6 +44,7 @@ type Server struct {
 func NewServer(context *context.Context) *Server {
 	srv := new(Server)
 	srv.Context = context
+
 	return srv
 }
 
@@ -62,6 +63,7 @@ func (srv *Server) Serve() error {
 	echostr, exists := srv.GetQuery("echostr")
 	if exists {
 		srv.String(echostr)
+
 		return nil
 	}
 
@@ -93,6 +95,7 @@ func (srv *Server) handleRequest() (reply *message.Reply, err error) {
 	// set isSafeMode
 	srv.isSafeMode = false
 	encryptType := srv.Query("encrypt_type")
+
 	if encryptType == "aes" {
 		srv.isSafeMode = true
 	}
@@ -102,15 +105,20 @@ func (srv *Server) handleRequest() (reply *message.Reply, err error) {
 
 	var msg interface{}
 	msg, err = srv.getMessage()
+
 	if err != nil {
 		return
 	}
+
 	mixMessage, success := msg.(*message.MixMessage)
+
 	if !success {
 		err = errors.New("消息类型转换失败")
 	}
+
 	srv.RequestMsg = mixMessage
 	reply = srv.messageHandler(mixMessage)
+
 	return
 }
 
@@ -122,7 +130,9 @@ func (srv *Server) GetOpenID() string {
 // getMessage 解析微信返回的消息
 func (srv *Server) getMessage() (interface{}, error) {
 	var rawXMLMsgBytes []byte
+
 	var err error
+
 	if srv.isSafeMode {
 		var encryptedXMLMsg message.EncryptedXMLMsg
 		if err := xml.NewDecoder(srv.Request.Body).Decode(&encryptedXMLMsg); err != nil {
@@ -132,13 +142,16 @@ func (srv *Server) getMessage() (interface{}, error) {
 		// 验证消息签名
 		timestamp := srv.Query("timestamp")
 		srv.timestamp, err = strconv.ParseInt(timestamp, 10, 32)
+
 		if err != nil {
 			return nil, err
 		}
+
 		nonce := srv.Query("nonce")
 		srv.nonce = nonce
 		msgSignature := srv.Query("msg_signature")
 		msgSignatureGen := util.Signature(srv.Token, timestamp, nonce, encryptedXMLMsg.EncryptedMsg)
+
 		if msgSignature != msgSignatureGen {
 			return nil, fmt.Errorf("消息不合法，验证签名失败")
 		}
@@ -163,6 +176,7 @@ func (srv *Server) getMessage() (interface{}, error) {
 func (srv *Server) parseRequestMessage(rawXMLMsgBytes []byte) (msg *message.MixMessage, err error) {
 	msg = &message.MixMessage{}
 	err = xml.Unmarshal(rawXMLMsgBytes, msg)
+
 	return
 }
 
@@ -225,6 +239,7 @@ func (srv *Server) buildResponse(reply *message.Reply) (err error) {
 func (srv *Server) Send() (err error) {
 	replyMsg := srv.ResponseMsg
 	log.Debugf("response msg =%+v", replyMsg)
+
 	if srv.isSafeMode {
 		// 安全模式下对消息进行加密
 		var encryptedMsg []byte
@@ -243,8 +258,10 @@ func (srv *Server) Send() (err error) {
 			Nonce:        srv.nonce,
 		}
 	}
+
 	if replyMsg != nil {
 		srv.XML(replyMsg)
 	}
+
 	return
 }

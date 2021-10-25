@@ -21,15 +21,14 @@ type Server struct {
 
 	skipValidate bool
 
-
 	RequestRawXMLMsg  []byte
 	RequestMsg        *message.MixMessage
 	ResponseRawXMLMsg []byte
 	ResponseMsg       interface{}
 
-	random     []byte
-	nonce      string
-	timestamp  int64
+	random    []byte
+	nonce     string
+	timestamp int64
 }
 
 // NewServer init
@@ -57,7 +56,7 @@ func (srv *Server) Validate() bool {
 	return signature == util.Signature(srv.Token, timestamp, nonce)
 }
 
-// getMessage 解析微信返回的消息
+// GetMessage 解析微信返回的消息
 func (srv *Server) GetMessage() (*message.MixMessage, error) {
 	var rawXMLMsgBytes []byte
 	var err error

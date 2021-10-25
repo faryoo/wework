@@ -5,13 +5,15 @@ import (
 	"time"
 )
 
-func TestRedis(t *testing.T) {
+func TestRedis(t *testing.T) { //nolint:paralleltest
 	opts := &RedisOpts{
 		Host: "127.0.0.1:6379",
 	}
 	redis := NewRedis(opts)
 	redis.SetConn(redis.conn)
+
 	var err error
+
 	timeoutDuration := 1 * time.Second
 
 	if err = redis.Set("username", "silenceper", timeoutDuration); err != nil {
@@ -22,7 +24,11 @@ func TestRedis(t *testing.T) {
 		t.Error("IsExist Error")
 	}
 
-	name := redis.Get("username").(string)
+	var name string
+	if v, ok := redis.Get("username").(string); ok {
+		name = v
+	}
+
 	if name != "silenceper" {
 		t.Error("get Error")
 	}

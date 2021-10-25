@@ -2,6 +2,7 @@ package cache
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/gomodule/redigo/redis"
@@ -33,16 +34,19 @@ func NewRedis(opts *RedisOpts, dialOpts ...redis.DialOption) *Redis {
 				redis.DialDatabase(opts.Database),
 				redis.DialPassword(opts.Password),
 			}...)
-			return redis.Dial("tcp", opts.Host, dialOpts...)
+
+			return redis.Dial("tcp", opts.Host, dialOpts...) //nolint:wrapcheck
 		},
 		TestOnBorrow: func(conn redis.Conn, t time.Time) error {
 			if time.Since(t) < time.Minute {
 				return nil
 			}
 			_, err := conn.Do("PING")
-			return err
+
+			return err //nolint:wrapcheck
 		},
 	}
+
 	return &Redis{pool}
 }
 
@@ -62,10 +66,12 @@ func (r *Redis) Get(key string) interface{} {
 	defer conn.Close()
 
 	var data []byte
+
 	var err error
 	if data, err = redis.Bytes(conn.Do("GET", key)); err != nil {
 		return nil
 	}
+
 	var reply interface{}
 	if err = json.Unmarshal(data, &reply); err != nil {
 		return nil
@@ -80,6 +86,7 @@ func (r *Redis) Set(key string, val interface{}, timeout time.Duration) (err err
 	defer conn.Close()
 
 	var data []byte
+
 	if data, err = json.Marshal(val); err != nil {
 		return
 	}
@@ -95,8 +102,11 @@ func (r *Redis) IsExist(key string) bool {
 	defer conn.Close()
 
 	a, _ := conn.Do("EXISTS", key)
-	i := a.(int64)
-	return i > 0
+	if i, ok := a.(int64); ok {
+		return i > 0
+	}
+
+	return false
 }
 
 // Delete 删除
@@ -105,7 +115,7 @@ func (r *Redis) Delete(key string) error {
 	defer conn.Close()
 
 	if _, err := conn.Do("DEL", key); err != nil {
-		return err
+		return fmt.Errorf("delete wrong:%w", err)
 	}
 
 	return nil
